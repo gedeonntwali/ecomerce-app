@@ -1,0 +1,21 @@
+<h1> Gideon Online Selling</h1>
+
+<table>
+  <tr>
+    <th></th>  Name  </th>
+    <th></th>  Price  </th>
+    <th></th>  Size  </th>
+    <th></th>  Image  </th>
+  </tr>
+  <tr>
+    <td><%= @product.name %></td>
+    <td><%= @product.price %></td>
+    <td><%= @product.size %></td>
+    <td><img src="<%= @product.image %>"></td>
+  </tr>
+
+</table>
+
+<%= form_tag "/products/#{@product.id}", method: :delete do%>
+  <button><input type="button" class="btn btn-default" name="Edit Product" value ="Delete"></button>
+ <% end %>
