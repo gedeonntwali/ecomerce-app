@@ -1,19 +1,20 @@
 <h1> Gideon Online Selling</h1>
 
-<table>
-  <tr>
-    <th></th>  Name  </th>
-    <th></th>  Price  </th>
-    <th></th>  Size  </th>
-    <th></th>  Image  </th>
-  </tr>
-  <% @products.each do |product| %>
-    <tr>
-      <td><%= product.name %></td>
-      <td><%= product.price %></td>
-      <td><%= product.size %></td>
-      <td><img src="<%= product.image %>"></td>
-    </tr>
-  <% end %>
+<%= button_to "Add New Product", "/products/new", method: :get %>
 
-</table>
+<div class="row">
+  <% @products.each_slice(3) do |three_products| %>
+    <div class="row">
+        <% three_products.each do |product| %>
+          <div class="col-md-4">
+            <h2><%= link_to product.name, "/products/#{product.id}" %></h2>
+            <img src="<%= product.image %>" class="image">
+            <h2>Price($): <%= product.price %></h2>
+            <h2>Size: <%= product.size %></h2>
+            <h2>Tax($): <%= product.tax %></h2>
+            <h2>Total_Price($): <%= product.total_price %></h2>
+          </div>
+        <% end %>
+    </div>
+  <% end %>
+</div>
