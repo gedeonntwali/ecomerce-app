@@ -1,5 +1,6 @@
 <h1> Gideon Online Selling</h1>
 
+
 <%= button_to "Add New Product", "/products/new", method: :get %>
 
 <div class="row">
@@ -7,12 +8,12 @@
     <div class="row">
         <% three_products.each do |product| %>
           <div class="col-md-4">
-            <h2><%= link_to product.name, "/products/#{product.id}" %></h2>
-            <img src="<%= product.image %>" class="image">
-            <h2>Price($): <%= product.price %></h2>
-            <h2>Size: <%= product.size %></h2>
-            <h2>Tax($): <%= product.tax %></h2>
-            <h2>Total_Price($): <%= product.total_price %></h2>
+            <h4><%= link_to product.name, "/products/#{product.id}" %></h4>
+            <h4>Price($): <%= product.price %></h4>
+            <h4>Size: <%= product.size %></h4>
+            <h4>Description: <%= product.description %></h4>
+            <h4>Tax($): <%= product.tax %></h4>
+            <h4>Total_Price($): <%= product.total_price %></h4>
           </div>
         <% end %>
     </div>

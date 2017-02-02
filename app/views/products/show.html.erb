@@ -5,14 +5,22 @@
     <th>  Name  </th>
     <th>  Price($)  </th>
     <th>  Size  </th>
+    <th>  Supplier  </th>
+    <th>  Description </th>
     <th>  Image  </th>
   </tr>
   <tr>
     <td><%= @product.name %></td>
     <td><%= @product.price %></td>
     <td><%= @product.size %></td>
-    <td><img src="<%= @product.image %>"></td>
-    
+    <td><%= @product.supplier.name %></td>
+    <td><%= @product.description %></td>
+
+    <div class="carousel-item">
+      <% @product.images.each do |image| %>
+        <img src="<%= image.url %>">      
+      <% end %>
+    </div>
   </tr>
 
 </table>
