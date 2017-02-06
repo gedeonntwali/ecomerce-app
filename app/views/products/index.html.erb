@@ -3,19 +3,22 @@
 
 <%= button_to "Add New Product", "/products/new", method: :get %>
 
-<div class="row">
-  <% @products.each_slice(3) do |three_products| %>
-    <div class="row">
-        <% three_products.each do |product| %>
-          <div class="col-md-4">
-            <h4><%= link_to product.name, "/products/#{product.id}" %></h4>
-            <h4>Price($): <%= product.price %></h4>
-            <h4>Size: <%= product.size %></h4>
-            <h4>Description: <%= product.description %></h4>
-            <h4>Tax($): <%= product.tax %></h4>
-            <h4>Total_Price($): <%= product.total_price %></h4>
-          </div>
-        <% end %>
-    </div>
-  <% end %>
+<div class="container-fluid">
+  <div class="row">
+    <% @products.each_slice(3) do |three_products| %>
+      <div class="row">
+          <% three_products.each do |product| %>
+            <div class="col-md-4">
+              <h4><%= link_to product.name, "/products/#{product.id}" %></h4>
+              <h4>Price($): <%= product.price %></h4>
+              <h4>Size: <%= product.size %></h4>
+              <img src="<%= product.images.first.url if product.images.any? %>" class="image" >
+              <h4>Description: <%= product.description %></h4>
+              <h4>Tax($): <%= product.tax %></h4>
+              <h4>Total_Price($): <%= product.total_price %></h4>
+            </div>
+          <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

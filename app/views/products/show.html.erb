@@ -1,5 +1,8 @@
 <h1> Gideon Online Selling</h1>
 
+<%= button_to "Edit", "/products/#{@product.id}/edit", method: :get %>
+<%= button_to "Delete", "/products/#{@product.id}", method: :delete %>
+
 <table class="table table-bordered">
   <tr>
     <th>  Name  </th>
@@ -7,7 +10,6 @@
     <th>  Size  </th>
     <th>  Supplier  </th>
     <th>  Description </th>
-    <th>  Image  </th>
   </tr>
   <tr>
     <td><%= @product.name %></td>
@@ -15,15 +17,28 @@
     <td><%= @product.size %></td>
     <td><%= @product.supplier.name %></td>
     <td><%= @product.description %></td>
+    <% @product.categories.each do |category| %>
+      <li><%= category.name %></li>
+    <% end %>
+      
+    <% @product.images.each do |image| %>
+      <img class="image" src="<%= image.url %>">
+    <% end %>
 
-    <div class="carousel-item">
-      <% @product.images.each do |image| %>
-        <img src="<%= image.url %>">      
-      <% end %>
-    </div>
+    
   </tr>
 
 </table>
 
-<%= button_to "Edit", "/products/#{@product.id}/edit", method: :get %>
-<%= button_to "Delete", "/products/#{@product.id}", method: :delete %>
+<%= form_tag "/orders", method: :post do%>
+      <form> 
+        <div class="form-group">
+          Quantity: <input type="text" class="form-group" name="quantity">
+        </div>
+        <div class="checkbox">
+          <input type="submit" class="btn btn-default" value="Buy Now">
+        </div>
+      </form>
+<% end %>
+
+

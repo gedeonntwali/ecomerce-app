@@ -6,6 +6,9 @@ class ProductsController < ApplicationController
       @products = Product.all.order(price: params[:price])
     elsif params[:cheap]
       @products = Product.where("price<200")
+    elsif params[:category]
+     @products =  Category.find_by(name: params[:category]).products
+
     else
       @products = Product.all
     end
@@ -18,15 +21,18 @@ class ProductsController < ApplicationController
   end
 
   def new
+     unless current_user
+       flash[:message] = "Only signed in cooks can create recipes!"
+       redirect_to "/signup"
+     end
   end
 
   def create
     name = params[:name]
     price = params[:price]
     size = params[:size]
-    image = params[:image]
     description = params[:description]
-    product = Product.new({name: name, price: price, size: size, image: image, description: description})
+    product = Product.new({name: name, price: price, size: size, description: description})
     product.save
     flash[:success] = "Product Created"
     redirect_to "/products/#{product.id}"
@@ -41,8 +47,7 @@ class ProductsController < ApplicationController
     product.name = params[:name]
     product.price = params[:price]
     product.size = params[:size]
-    product.image = params[:image]
-    description = params[:description]
+    product.description = params[:description]
     product.save
     flash[:success] = "Product Updated"
     redirect_to "/products/#{product.id}"
