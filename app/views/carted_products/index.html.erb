@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-2"></div>
-  <div class="col-md-8">
+  <div class="col-md-6">
   <h2>Your order: <%= @carted_products.last.order.user.name %></h2>
     <table class="table">
       <tr>
@@ -18,5 +18,6 @@
         </tr>
       <% end %>
     </table>
+    <% button_to "Buy Now", "/order"
   </div>
 </div>

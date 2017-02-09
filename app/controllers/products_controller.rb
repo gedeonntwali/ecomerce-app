@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
 
+before_action :authenticate_user!, except: [:index, :show, :search]
+before_action :authenticate_admin!, only: [:new, :destroy, :edit]
+
   def index
 
     if params[:price]
@@ -13,7 +16,7 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
 
-  render "index.html.erb"
+     render "index.html.erb"
   end
 
   def show
@@ -21,10 +24,6 @@ class ProductsController < ApplicationController
   end
 
   def new
-     unless current_user
-       flash[:message] = "Only signed in cooks can create recipes!"
-       redirect_to "/signup"
-     end
   end
 
   def create
@@ -63,10 +62,10 @@ class ProductsController < ApplicationController
   def search
     search_query = params[:search_input]
     @products = Product.where("name LIKE ? OR description LIKE ?", "%#{search_query}%", "%#{search_query}%")
-      if @products.empty?
-        flash[:info] = "No products found in search"
-      end
-      render :index
+    if @products.empty?
+      flash[:info] = "No products found in search"
     end
+    render :index
+  end
 
 end
