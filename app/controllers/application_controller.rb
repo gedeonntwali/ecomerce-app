@@ -7,13 +7,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authenticate_user!
-    flash[:danger] = "Access Denied"
+    flash.now[:danger] = "Access Denied"
     redirect_to "/products" unless current_user
   end
 
   def authenticate_admin!
-    unless current_user && current_user.authenticate_admin
-      flash[:danger] = "Access Denied"
+    unless current_user && current_user.admin
+      flash.now[:danger] = "Access Denied"
       redirect_to "/products"
     end
   end

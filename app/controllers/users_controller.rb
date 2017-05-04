@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   def new
-    render 'new.html.erb'
+    @user = User.new
+    render :new
   end
 
   def create

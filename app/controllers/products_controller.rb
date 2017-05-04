@@ -24,17 +24,26 @@ before_action :authenticate_admin!, only: [:new, :destroy, :edit]
   end
 
   def new
+    @suppliers = Supplier.all
+    @product = Product.new
+
   end
 
   def create
-    name = params[:name]
-    price = params[:price]
-    size = params[:size]
-    description = params[:description]
-    product = Product.new({name: name, price: price, size: size, description: description})
-    product.save
-    flash[:success] = "Product Created"
-    redirect_to "/products/#{product.id}"
+    @product = Product.new({
+      name: params[:name],
+      description: params[:description],
+      price: params[:price],
+      supplier_id: params[:supplier_id]
+      })
+    if @product.save
+      flash[:success] = "Product Created"
+      redirect_to "/products/#{@product.id}"
+    else
+      @suppliers = Supplier.all
+      flash[:warning] = "Product NOT Created"
+      render :new
+    end
   end
 
   def edit

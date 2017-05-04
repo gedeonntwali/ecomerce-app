@@ -15,9 +15,10 @@
           <td><%= carted_product.product.name %></td>
           <td><%= carted_product.quantity %></td>
           <td><%= carted_product.product.price %></td>
+          <td><%= button_to "Remove","/carted_products/#{carted_product.id}", method: :delete %>
         </tr>
       <% end %>
     </table>
-    <% button_to "Buy Now", "/order"
+    <%= button_to "Buy Now","/orders/#{@order.id}", method: :patch %>
   </div>
 </div>
